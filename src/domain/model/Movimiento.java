@@ -5,13 +5,16 @@ import domain.enums.TipoMovimiento;
 import java.time.LocalDateTime;
 
 
+
 public class Movimiento {
+
 
     private int id;
     private LocalDateTime fecha;
     private TipoMovimiento tipo;
     private double valor;
     private double saldoPosterior;
+
 
     public Movimiento(int id, TipoMovimiento tipo,
                       double valor, double saldoPosterior) {
