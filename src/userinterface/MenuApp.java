@@ -20,6 +20,7 @@ public class MenuApp {
         this.cuentaService = cuentaService;
     }
 
+
     public void iniciar() {
 
         int opcion;
@@ -45,6 +46,7 @@ public class MenuApp {
 
         } while (opcion != 0);
     }
+
 
     // =========================
     // REGISTRO CLIENTE
@@ -78,6 +80,7 @@ public class MenuApp {
         clienteService.registrar(cliente);
     }
 
+
     // =========================
     // LOGIN
     // =========================
@@ -95,6 +98,7 @@ public class MenuApp {
             menuCliente(cliente);
         }
     }
+
 
     // =========================
     // MENÚ CLIENTE

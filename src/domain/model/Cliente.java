@@ -32,6 +32,7 @@ public class Cliente implements IAutenticable {
         this.bloqueado = false;
     }
 
+
     @Override
     public boolean autenticar(String usuario, String contrasena) {
         try {
