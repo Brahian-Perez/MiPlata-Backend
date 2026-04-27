@@ -9,9 +9,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     private ClienteRepository repo;
 
+
     public ClienteServiceImpl(ClienteRepository repo) {
         this.repo = repo;
     }
+
 
     @Override
     public void registrar(Cliente cliente) {

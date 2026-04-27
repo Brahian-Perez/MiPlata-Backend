@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public interface ClienteService {
 
+
     void registrar(Cliente cliente);
 
     Cliente login(String usuario, String contrasena);
