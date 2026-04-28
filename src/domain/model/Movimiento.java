@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 public class Movimiento {
 
+
     private int id;
     private LocalDateTime fecha;
     private TipoMovimiento tipo;
@@ -14,6 +15,7 @@ public class Movimiento {
     private double saldoPosterior;
 
     public Movimiento(int id, TipoMovimiento tipo,
+
                       double valor, double saldoPosterior) {
 
         this.id = id;
@@ -22,6 +24,7 @@ public class Movimiento {
         this.valor = valor;
         this.saldoPosterior = saldoPosterior;
     }
+
 
     public void mostrar() {
         System.out.println(id + " | " +
