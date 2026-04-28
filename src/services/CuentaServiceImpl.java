@@ -42,6 +42,7 @@ public class CuentaServiceImpl implements CuentaService {
 
     @Override
     public void retirar(Cliente cliente, String numero, double monto) {
+
         try {
             Cuenta cuenta = cliente.buscarCuenta(numero);
 
