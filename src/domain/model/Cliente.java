@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Cliente implements IAutenticable {
 
+
     private int id;
     private String identificacion;
     private String nombre;
@@ -17,6 +18,7 @@ public class Cliente implements IAutenticable {
     private boolean bloqueado;
 
     private ArrayList<Cuenta> cuentas;
+
 
     public Cliente(int id, String identificacion, String nombre,
                    String celular, String usuario, String contrasena) {
