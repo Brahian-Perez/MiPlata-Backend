@@ -1,19 +1,17 @@
 package services;
 
 import domain.model.Cliente;
-import repository.ClienteRepository;
+import repository.IClienteRepository;
 
 import java.util.ArrayList;
 
 public class ClienteServiceImpl implements ClienteService {
 
-    private ClienteRepository repo;
+    private IClienteRepository repo;
 
-
-    public ClienteServiceImpl(ClienteRepository repo) {
+    public ClienteServiceImpl(IClienteRepository repo) {
         this.repo = repo;
     }
-
 
     @Override
     public void registrar(Cliente cliente) {
@@ -36,7 +34,6 @@ public class ClienteServiceImpl implements ClienteService {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error: "+e);
             return null;
         }
     }
@@ -44,15 +41,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void actualizar(String usuario, String nuevoNombre, String nuevoCelular) {
         try {
-            Cliente c = repo.buscarPorUsuario(usuario);
-
-            if (c != null) {
-                c.setNombre(nuevoNombre);
-                c.setCelular(nuevoCelular);
-            }
+            repo.actualizar(usuario, nuevoNombre, nuevoCelular);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
 

@@ -170,9 +170,11 @@ public class Cliente implements IAutenticable {
     }
 
     public void setNombre(String nuevoNombre) {
+        this.nombre = nuevoNombre;
     }
 
     public void setCelular(String nuevoCelular) {
+        this.celular = nuevoCelular;
     }
 
     public String getNombre() {
