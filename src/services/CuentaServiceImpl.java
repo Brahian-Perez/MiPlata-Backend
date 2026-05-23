@@ -2,7 +2,6 @@ package services;
 
 import domain.model.Cliente;
 import domain.model.Cuenta;
-import domain.model.TarjetaCredito;
 
 public class CuentaServiceImpl implements CuentaService {
 
@@ -65,11 +64,6 @@ public class CuentaServiceImpl implements CuentaService {
             for (Cliente c : clienteService.listar()) {
                 cuentaDestino = c.buscarCuenta(destino);
                 if (cuentaDestino != null) break;
-            }
-
-            if (cuentaOrigen instanceof TarjetaCredito) {
-                System.out.println("Tarjeta de crédito no puede transferir");
-                return;
             }
 
             if (cuentaOrigen == null || cuentaDestino == null) {

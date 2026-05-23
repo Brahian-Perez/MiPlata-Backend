@@ -1,44 +1,38 @@
 package domain.model;
 
+import domain.enums.TipoMovimiento;
+
 public class CuentaCorriente extends Cuenta {
+
+    private double porcentajeSobregiro;
+    private double limiteSobregiro;
 
     public CuentaCorriente(String numeroCuenta, double saldoInicial) {
         super(numeroCuenta, saldoInicial);
+        this.porcentajeSobregiro = 0.20;
+        this.limiteSobregiro = calcularLimiteSobregiro();
     }
 
     @Override
     public void retirar(double monto) {
-        try {
-            double limite = saldo * 1.2;
-
-            if (monto <= limite) {
-                saldo -= monto;
-                registrarMovimiento(domain.enums.TipoMovimiento.RETIRO, monto);
-            } else {
-                System.out.println("Excede el límite de sobregiro (20%)");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        double limiteTotal = saldo + calcularLimiteSobregiro();
+        if (monto <= limiteTotal) {
+            saldo -= monto;
+            registrarMovimiento(TipoMovimiento.RETIRO, monto, "Retiro");
+        } else {
+            System.out.println("Excede el límite de sobregiro (20%)");
         }
     }
 
-    @Override
-    protected boolean puedeTransferir(double monto) {
-        return false;
+    public double calcularLimiteSobregiro() {
+        return saldo * porcentajeSobregiro;
     }
 
     @Override
-    protected boolean tieneSaldoSuficiente(double monto) {
-        return false;
+    public boolean validarDestino(Cuenta c) {
+        return c != null && !(c instanceof TarjetaCredito);
     }
 
-    @Override
-    protected boolean puedeOperar(double monto) {
-        return true;
-    }
-
-    @Override
-    protected double saldoDisponible() {
-        return saldo * 1.2;
-    }
+    public double getPorcentajeSobregiro() { return porcentajeSobregiro; }
+    public double getLimiteSobregiro() { return calcularLimiteSobregiro(); }
 }

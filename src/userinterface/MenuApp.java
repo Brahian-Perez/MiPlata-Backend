@@ -133,7 +133,7 @@ public class MenuApp {
                 case 8 -> pagarTarjeta(cliente);
                 case 9 -> consultarTarjeta(cliente);
 
-                case 0 -> System.out.println("Cerrando sesión...");
+                case 0 -> cliente.cerrarSesion();
                 default -> System.out.println("Opción inválida");
             }
 
@@ -172,7 +172,7 @@ public class MenuApp {
         for (Cliente c : clienteService.listar()) {
             System.out.println(
                     c.getUsuario() + " | " +
-                            c.getNombre() + " | " +
+                            c.getNombreCompleto() + " | " +
                             c.getCelular()
             );
         }

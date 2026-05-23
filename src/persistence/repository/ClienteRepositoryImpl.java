@@ -12,12 +12,12 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
     @Override
     public void guardar(Cliente cliente) {
-        String sql = "INSERT INTO clientes (identificacion, nombre, celular, usuario, contrasena) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO clientes (identificacion, nombre_completo, celular, usuario, contrasena) VALUES (?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, cliente.getIdentificacion());
-            stmt.setString(2, cliente.getNombre());
+            stmt.setString(2, cliente.getNombreCompleto());
             stmt.setString(3, cliente.getCelular());
             stmt.setString(4, cliente.getUsuario());
             stmt.setString(5, cliente.getContrasena());
@@ -79,7 +79,7 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
     @Override
     public void actualizar(String usuario, String nuevoNombre, String nuevoCelular) {
-        String sql = "UPDATE clientes SET nombre = ?, celular = ? WHERE usuario = ?";
+        String sql = "UPDATE clientes SET nombre_completo = ?, celular = ? WHERE usuario = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 

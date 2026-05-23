@@ -1,44 +1,42 @@
 package domain.model;
 
+import domain.enums.TipoMovimiento;
+
 public class CuentaAhorros extends Cuenta {
+
+    private double tasaInteres;
 
     public CuentaAhorros(String numeroCuenta, double saldoInicial) {
         super(numeroCuenta, saldoInicial);
+        this.tasaInteres = 0.005;
     }
 
     @Override
     public void retirar(double monto) {
-        try {
-            if (monto <= 0) return;
-
-            if (saldo >= monto) {
-                saldo -= monto;
-                registrarMovimiento(domain.enums.TipoMovimiento.RETIRO, monto);
-            } else {
-                System.out.println("Saldo insuficiente");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (monto <= 0) return;
+        if (saldo >= monto) {
+            saldo -= monto;
+            registrarMovimiento(TipoMovimiento.RETIRO, monto, "Retiro");
+        } else {
+            System.out.println("Saldo insuficiente");
         }
     }
 
-    @Override
-    protected boolean puedeTransferir(double monto) {
-        return false;
+    public void aplicarIntereses() {
+        double intereses = calcularIntereses();
+        saldo += intereses;
+        registrarMovimiento(TipoMovimiento.CONSIGNACION, intereses, "Intereses aplicados");
+        System.out.println("Intereses aplicados: $" + intereses);
+    }
+
+    public double calcularIntereses() {
+        return saldo * tasaInteres;
     }
 
     @Override
-    protected boolean tieneSaldoSuficiente(double monto) {
-        return false;
+    public boolean validarDestino(Cuenta c) {
+        return c != null && !(c instanceof TarjetaCredito);
     }
 
-    @Override
-    protected boolean puedeOperar(double monto) {
-        return true; //depende del saldo
-    }
-
-    @Override
-    protected double saldoDisponible() {
-        return saldo;
-    }
+    public double getTasaInteres() { return tasaInteres; }
 }
