@@ -12,6 +12,19 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
     @Override
     public void guardar(Cliente cliente) {
+        // Validar que los datos no sean nulos o vacíos
+        if (cliente.getIdentificacion() == null || cliente.getIdentificacion().isEmpty() ||
+            cliente.getNombreCompleto() == null || cliente.getNombreCompleto().isEmpty() ||
+            cliente.getCelular() == null || cliente.getCelular().isEmpty() ||
+            cliente.getUsuario() == null || cliente.getUsuario().isEmpty() ||
+            cliente.getContrasena() == null || cliente.getContrasena().isEmpty()) {
+            throw new IllegalArgumentException("Todos los campos son obligatorios");
+        }
+        //validación para cliente con el mismo usuario
+        if (buscarPorUsuario(cliente.getUsuario()) != null) {
+            throw new IllegalArgumentException("El usuario ya existe");
+        }
+
         String sql = "INSERT INTO clientes (identificacion, nombre_completo, celular, usuario, contrasena) VALUES (?,?,?,?,?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -25,6 +38,7 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("error al guardar los datos");
         }
     }
 
