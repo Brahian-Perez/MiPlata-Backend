@@ -296,22 +296,14 @@ public class MenuApp {
         System.out.print("Número de tarjeta: ");
         String numero = sc.nextLine();
 
-        Cuenta cuenta = cliente.buscarCuenta(numero);
+        System.out.print("Monto compra: ");
+        double monto = sc.nextDouble();
 
-        if (cuenta instanceof TarjetaCredito tarjeta) {
+        System.out.print("Cuotas: ");
+        int cuotas = sc.nextInt();
+        sc.nextLine();
 
-            System.out.print("Monto compra: ");
-            double monto = sc.nextDouble();
-
-            System.out.print("Cuotas: ");
-            int cuotas = sc.nextInt();
-            sc.nextLine();
-
-            tarjeta.comprar(monto, cuotas);
-
-        } else {
-            System.out.println("No es una tarjeta válida");
-        }
+        cuentaService.comprarConTarjeta(cliente, numero, monto, cuotas);
     }
 
     private void pagarTarjeta(Cliente cliente) {
@@ -319,19 +311,11 @@ public class MenuApp {
         System.out.print("Número de tarjeta: ");
         String numero = sc.nextLine();
 
-        Cuenta cuenta = cliente.buscarCuenta(numero);
+        System.out.print("Monto a pagar: ");
+        double monto = sc.nextDouble();
+        sc.nextLine();
 
-        if (cuenta instanceof TarjetaCredito tarjeta) {
-
-            System.out.print("Monto a pagar: ");
-            double monto = sc.nextDouble();
-            sc.nextLine();
-
-            tarjeta.pagar(monto);
-
-        } else {
-            System.out.println("No es una tarjeta válida");
-        }
+        cuentaService.pagarTarjeta(cliente, numero, monto);
     }
 
     private void consultarTarjeta(Cliente cliente) {

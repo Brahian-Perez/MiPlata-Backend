@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public abstract class Cuenta implements ITransaccion, ITransferible {
 
+    protected int id;
     protected String numeroCuenta;
     protected double saldo;
     protected LocalDateTime fechaApertura;
@@ -24,9 +25,19 @@ public abstract class Cuenta implements ITransaccion, ITransferible {
         this.movimientos = new ArrayList<>();
     }
 
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public String getNumeroCuenta() { return numeroCuenta; }
+    public double getSaldo() { return saldo; }
+    public void setSaldo(double saldo) { this.saldo = saldo; }
     public EstadoCuenta getEstado() { return estado; }
+    public void setEstado(EstadoCuenta estado) { this.estado = estado; }
     public LocalDateTime getFechaApertura() { return fechaApertura; }
+    public void setFechaApertura(LocalDateTime fechaApertura) { this.fechaApertura = fechaApertura; }
+
+    public void cargarMovimientos(ArrayList<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
 
     @Override
     public void consignar(double monto) {

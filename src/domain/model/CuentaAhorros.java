@@ -39,4 +39,5 @@ public class CuentaAhorros extends Cuenta {
     }
 
     public double getTasaInteres() { return tasaInteres; }
+    public void setTasaInteres(double tasaInteres) { this.tasaInteres = tasaInteres; }
 }

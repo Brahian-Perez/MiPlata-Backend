@@ -1,16 +1,24 @@
 package services;
 
 import domain.model.Cliente;
+import domain.model.Cuenta;
+import domain.model.Movimiento;
 import repository.IClienteRepository;
+import repository.ICuentaRepository;
+import repository.IMovimientoRepository;
 
 import java.util.ArrayList;
 
 public class ClienteServiceImpl implements ClienteService {
 
     private IClienteRepository repo;
+    private ICuentaRepository cuentaRepo;
+    private IMovimientoRepository movimientoRepo;
 
-    public ClienteServiceImpl(IClienteRepository repo) {
+    public ClienteServiceImpl(IClienteRepository repo, ICuentaRepository cuentaRepo, IMovimientoRepository movimientoRepo) {
         this.repo = repo;
+        this.cuentaRepo = cuentaRepo;
+        this.movimientoRepo = movimientoRepo;
     }
 
     @Override
@@ -26,11 +34,15 @@ public class ClienteServiceImpl implements ClienteService {
     public Cliente login(String usuario, String contrasena) {
         try {
             Cliente c = repo.buscarPorUsuario(usuario);
-
             if (c != null && c.autenticar(usuario, contrasena)) {
+                ArrayList<Cuenta> cuentas = cuentaRepo.listarPorCliente(c.getId());
+                for (Cuenta cuenta : cuentas) {
+                    ArrayList<Movimiento> movs = movimientoRepo.listarPorCuenta(cuenta.getId());
+                    cuenta.cargarMovimientos(movs);
+                }
+                c.setCuentas(cuentas);
                 return c;
             }
-
             return null;
         } catch (Exception e) {
             e.printStackTrace();

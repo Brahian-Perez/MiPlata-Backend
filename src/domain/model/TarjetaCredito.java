@@ -65,7 +65,9 @@ public class TarjetaCredito extends Cuenta {
     }
 
     public double getDeuda() { return deuda; }
+    public void setDeuda(double deuda) { this.deuda = deuda; }
     public double getCupoDisponible() { return cupo - deuda; }
     public double getCupo() { return cupo; }
     public int getNumeroCuotas() { return numeroCuotas; }
+    public void setNumeroCuotas(int numeroCuotas) { this.numeroCuotas = numeroCuotas; }
 }
