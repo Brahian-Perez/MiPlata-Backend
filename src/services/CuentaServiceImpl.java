@@ -20,6 +20,7 @@ public class CuentaServiceImpl implements CuentaService {
     public void crearCuenta(Cliente cliente, Cuenta cuenta) {
         try {
             cuentaRepo.guardar(cuenta, cliente.getId());
+            System.out.println("Cuenta creada exitosamente.");
             cliente.agregarCuenta(cuenta);
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,6 +36,7 @@ public class CuentaServiceImpl implements CuentaService {
             cuenta.consignar(monto);
             cuentaRepo.actualizarSaldo(cuenta.getId(), cuenta.consultarSaldo());
             persistirUltimo(cuenta);
+            System.out.println("Monto total:"+ (cuenta.getSaldo()));
             System.out.println("Consignación exitosa.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,6 +54,7 @@ public class CuentaServiceImpl implements CuentaService {
             if (cuenta.obtenerMovimientos().size() > antes) {
                 cuentaRepo.actualizarSaldo(cuenta.getId(), cuenta.consultarSaldo());
                 persistirUltimo(cuenta);
+                System.out.println("Retiro exitoso.");
             }
         } catch (Exception e) {
             e.printStackTrace();

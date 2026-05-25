@@ -76,7 +76,7 @@ public class MenuApp {
         );
 
         clienteService.registrar(cliente);
-        System.out.println("Cliente registrado exitosamente");
+
     }
 
     // =========================

@@ -25,6 +25,7 @@ public class ClienteServiceImpl implements ClienteService {
     public void registrar(Cliente cliente) {
         try {
             repo.guardar(cliente);
+            System.out.println("Cliente registrado exitosamente.");
         } catch (Exception e) {
             e.printStackTrace();
         }

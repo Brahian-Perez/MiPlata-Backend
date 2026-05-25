@@ -38,7 +38,8 @@ public class TarjetaCredito extends Cuenta {
         if (monto > deuda) monto = deuda;
         deuda -= monto;
         registrarMovimiento(TipoMovimiento.PAGO_TC, monto, "Pago tarjeta");
-        System.out.println("Pago realizado. Deuda actual: $" + deuda);
+        System.out.println("Pago realizado con exito. Cupo disponible: $" + getCupoDisponible());
+        System.out.println("Deuda actual: $" + deuda);
     }
 
     public double calcularTasa(int cuotas) {
