@@ -31,6 +31,18 @@ public class ClienteRepository {
         return null;
     }
 
+
+    //Actualizar datos del cliente
+    public void actualizar(String usuario, String nuevoNombre, String nuevoCelular, String nuevaContrasena) {
+        Cliente c = buscarPorUsuario(usuario);
+        if (c != null) {
+            c.editarPerfil(nuevoNombre, nuevoCelular);
+            c.cambiarContrasena(c.getContrasena(), nuevaContrasena);
+        }
+    }
+
+
+
     public void eliminar(String usuario) {
 
         Cliente c = buscarPorUsuario(usuario);

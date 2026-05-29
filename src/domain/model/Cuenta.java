@@ -24,7 +24,6 @@ public abstract class Cuenta implements ITransaccion, ITransferible {
         this.estado = EstadoCuenta.ACTIVA;
         this.movimientos = new ArrayList<>();
     }
-    //NECESITO QUE AL CREAR LA CUENTA DE AHORROS SE APLIQUE EL CODIGO CAH-  JUSTO AL INICIO DEL NUMERO ASIGNADO POR EL CLIENTTE
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public void setNumeroCuenta(String numeroCuenta) { this.numeroCuenta = numeroCuenta; }

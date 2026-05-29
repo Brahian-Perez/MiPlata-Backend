@@ -4,8 +4,6 @@ import domain.model.Cliente;
 import domain.model.Cuenta;
 
 public interface CuentaService {
-    //NECESITO QUE AL CREAR LA CUENTA DE AHORROS SE APLIQUE EL CODIGO CAH-  JUSTO AL INICIO DEL NUMERO ASIGNADO POR EL CLIENTTE
-
     void crearCuenta(Cliente cliente, Cuenta cuenta);
     void consignar(Cliente cliente, String numero, double monto);
     void retirar(Cliente cliente, String numero, double monto);

@@ -9,5 +9,5 @@ public interface IClienteRepository {
     ArrayList<Cliente> listar();
     Cliente buscarPorUsuario(String usuario);
     void eliminar(String usuario);
-    void actualizar(String usuario, String nuevoNombre, String nuevoCelular);
+    void actualizar(String usuario, String nuevoNombre, String nuevoCelular, String nuevaContrasena);
 }

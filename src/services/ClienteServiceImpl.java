@@ -52,9 +52,9 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void actualizar(String usuario, String nuevoNombre, String nuevoCelular) {
+    public void actualizar(String usuario, String nuevoNombre, String nuevoCelular, String nuevaContrasena) {
         try {
-            repo.actualizar(usuario, nuevoNombre, nuevoCelular);
+            repo.actualizar(usuario, nuevoNombre, nuevoCelular,nuevaContrasena);
         } catch (Exception e) {
             e.printStackTrace();
         }

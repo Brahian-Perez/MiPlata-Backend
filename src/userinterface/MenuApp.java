@@ -185,10 +185,15 @@ public class MenuApp {
     private void listarClientes() {
 
         for (Cliente c : clienteService.listar()) {
-            System.out.println(
-                    c.getUsuario() + " | " +
-                            c.getNombreCompleto() + " | " +
-                            c.getCelular()
+            System.out.println("--- CLIENTE ---");
+            System.out.println("Id: "+c.getId() + " | " +
+                    "Identificacion: "+c.getIdentificacion() + " | " +
+                    "Nombre: "+c.getNombreCompleto() + " | " +
+                    "Celular: "+c.getCelular() + " | " +
+                    "Usuario: "+c.getUsuario() + " | " +
+                    "Contraseña: "+c.getContrasena()
+                    + " | "
+
             );
         }
     }
@@ -203,8 +208,11 @@ public class MenuApp {
 
         System.out.print("Nuevo celular: ");
         String celular = sc.nextLine();
+        //editar contraseña
+        System.out.print("Nueva contraseña: ");
+        String pass = sc.nextLine();
 
-        clienteService.actualizar(usuario, nombre, celular);
+        clienteService.actualizar(usuario, nombre, celular, pass);
     }
 
     private void eliminarCliente() {

@@ -92,18 +92,26 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
-    public void actualizar(String usuario, String nuevoNombre, String nuevoCelular) {
-        String sql = "UPDATE clientes SET nombre_completo = ?, celular = ? WHERE usuario = ?";
+    public void actualizar(String usuario, String nuevoNombre, String nuevoCelular, String nuevaContrasena) {
+        String sql = "UPDATE clientes SET nombre_completo = ?, celular = ?, contrasena = ? WHERE usuario = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, nuevoNombre);
             stmt.setString(2, nuevoCelular);
-            stmt.setString(3, usuario);
-            stmt.executeUpdate();
+            stmt.setString(3, nuevaContrasena);
+            stmt.setString(4, usuario);
+
+            int filasAfectadas = stmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Cliente actualizado en base de datos correctamente.");
+            } else {
+                System.out.println("No se encontró el usuario para actualizar.");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error al actualizar los datos en la base de datos.");
         }
     }
 }

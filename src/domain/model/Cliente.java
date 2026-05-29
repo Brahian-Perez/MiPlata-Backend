@@ -1,6 +1,8 @@
 package domain.model;
 
 import domain.interfaces.IAutenticable;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Cliente implements IAutenticable {
@@ -105,10 +107,23 @@ public class Cliente implements IAutenticable {
             return;
         }
         for (Cuenta c : cuentas) {
-            System.out.println("Cuenta: " + c.getNumeroCuenta()
-                    + " | Saldo: $" + c.consultarSaldo()
-                    + " | Estado: " + c.getEstado());
-        }
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            if (c instanceof TarjetaCredito tc)
+                System.out.println("Cuenta: " + c.getNumeroCuenta()
+                        + " | Fecha de apertura: " + c.getFechaApertura().format(formatter)
+                        + " | Tipo: " + c.getClass().getSimpleName()
+                        + "  | Cupo  disponible: $" + tc.getCupoDisponible()
+                        + " | Estado: " + c.getEstado());
+            else
+                System.out.println("Cuenta: " + c.getNumeroCuenta()
+
+                        + " | Fecha de apertura: " + c.getFechaApertura().format(formatter)
+                        + " | Tipo: " + c.getClass().getSimpleName()
+                        + " | Saldo disponible: $" + c.consultarSaldo()
+                        + " | Estado: " + c.getEstado());
+            }
+
+
     }
 
     public int getId() { return id; }

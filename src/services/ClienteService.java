@@ -11,7 +11,7 @@ public interface ClienteService {
 
     Cliente login(String usuario, String contrasena);
 
-    void actualizar(String usuario, String nuevoNombre, String nuevoCelular);
+    void actualizar(String usuario, String nuevoNombre, String nuevoCelular, String nuevaContrasena);
 
     void eliminar(String usuario);
 
