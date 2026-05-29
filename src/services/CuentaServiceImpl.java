@@ -18,12 +18,52 @@ public class CuentaServiceImpl implements CuentaService {
 
     @Override
     public void crearCuenta(Cliente cliente, Cuenta cuenta) {
+        if (cuenta instanceof CuentaAhorros) {
+            cuenta.setNumeroCuenta("CAH-" + cuenta.getNumeroCuenta());
+        } else if (cuenta instanceof CuentaCorriente) {
+            cuenta.setNumeroCuenta("CCO-" + cuenta.getNumeroCuenta());
+        } else if (cuenta instanceof TarjetaCredito) {
+            cuenta.setNumeroCuenta("TCR-" + cuenta.getNumeroCuenta());
+        }
+        String numeroCuentaCompleto = cuenta.getNumeroCuenta(); // El número ya viene prefijado desde el constructor de la cuenta
+        String tipoCuentaStr = getTipoCuentaString(cuenta);
+
+        if (cuentaRepo.buscarPorNumero(numeroCuentaCompleto) != null) {
+            System.out.println("Error: El número de cuenta " + numeroCuentaCompleto + " ya existe.");
+            return;
+        }
+
         try {
             cuentaRepo.guardar(cuenta, cliente.getId());
-            System.out.println("Cuenta creada exitosamente.");
-            cliente.agregarCuenta(cuenta);
+            if (cuenta.getId() > 0) {
+                System.out.println(getMensajeExito(tipoCuentaStr));
+                cliente.agregarCuenta(cuenta);
+            } else {
+                System.out.println("Error: No se pudo crear la cuenta. Inténtalo de nuevo.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error al crear la cuenta: " + e.getMessage());
+        }
+    }
+
+    private String getTipoCuentaString(Cuenta cuenta) {
+        if (cuenta instanceof CuentaAhorros) return "AHORROS";
+        if (cuenta instanceof CuentaCorriente) return "CORRIENTE";
+        if (cuenta instanceof TarjetaCredito) return "TARJETA_CREDITO";
+        return "";
+    }
+
+    private String getMensajeExito(String tipoCuenta) {
+        switch (tipoCuenta) {
+            case "AHORROS":
+                return "¡Excelente elección! Tu cuenta de ahorros está lista para empezar a guardar tus metas.";
+            case "CORRIENTE":
+                return "¡Felicidades! Tu cuenta corriente ha sido creada. ¡Gestiona tus finanzas con facilidad!";
+            case "TARJETA_CREDITO":
+                return "¡Enhorabuena! Tu tarjeta de crédito ha sido aprobada y está lista para usar. ¡Disfruta de sus beneficios!";
+            default:
+                return "¡Cuenta creada exitosamente!";
         }
     }
 

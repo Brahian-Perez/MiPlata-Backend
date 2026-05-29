@@ -13,6 +13,7 @@ public class CuentaMapper {
                 rs.getString("numero_cuenta"),
                 rs.getDouble("saldo")
         );
+        cuenta.setNumeroCuenta("CAH-" + cuenta.getNumeroCuenta());
         cuenta.setId(rs.getInt("id"));
         cuenta.setEstado(EstadoCuenta.valueOf(rs.getString("estado")));
         cuenta.setFechaApertura(rs.getTimestamp("fecha_apertura").toLocalDateTime());
@@ -25,6 +26,7 @@ public class CuentaMapper {
                 rs.getString("numero_cuenta"),
                 rs.getDouble("saldo")
         );
+        cuenta.setNumeroCuenta("CCO-" + cuenta.getNumeroCuenta());
         cuenta.setId(rs.getInt("id"));
         cuenta.setEstado(EstadoCuenta.valueOf(rs.getString("estado")));
         cuenta.setFechaApertura(rs.getTimestamp("fecha_apertura").toLocalDateTime());
@@ -37,6 +39,7 @@ public class CuentaMapper {
                 rs.getString("numero_cuenta"),
                 rs.getDouble("cupo")
         );
+        cuenta.setNumeroCuenta("TCR-" + cuenta.getNumeroCuenta());
         cuenta.setId(rs.getInt("id"));
         cuenta.setEstado(EstadoCuenta.valueOf(rs.getString("estado")));
         cuenta.setFechaApertura(rs.getTimestamp("fecha_apertura").toLocalDateTime());
