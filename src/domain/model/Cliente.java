@@ -32,14 +32,23 @@ public class Cliente implements IAutenticable {
 
     @Override
     public boolean autenticar(String usuario, String contrasena) {
+        if (intentosFallidos >= 3) {
+            System.out.println("Cuenta bloqueada por seguridad.");
+            return false;
+        }
         if (bloqueado) {
             System.out.println("Cuenta bloqueada.");
             return false;
         }
+        if (usuario == null || contrasena == null)
+            return false;
+        if (usuario.isEmpty() || contrasena.isEmpty())
+            return false;
         if (this.usuario.equals(usuario) && this.contrasena.equals(contrasena)) {
             resetearIntentos();
             return true;
         }
+        System.out.println("Usuario o contraseña incorrectos.");
         incrementarIntentos();
         return false;
     }

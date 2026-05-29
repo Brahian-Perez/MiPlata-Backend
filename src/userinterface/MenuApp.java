@@ -83,17 +83,31 @@ public class MenuApp {
     // LOGIN
     // =========================
     private void login() {
+        int intentosRestantes = 3;
+        boolean autenticado = false;
+        Cliente cliente = null;
 
-        System.out.print("Usuario: ");
-        String usuario = sc.nextLine();
+        while (intentosRestantes > 0 && !autenticado) {
+            System.out.print("Usuario: ");
+            String usuario = sc.nextLine();
+            System.out.print("Contraseña: ");
+            String pass = sc.nextLine();
 
-        System.out.print("Contraseña: ");
-        String pass = sc.nextLine();
+            cliente = clienteService.login(usuario, pass);
 
-        Cliente cliente = clienteService.login(usuario, pass);
-
-        if (cliente != null) {
-            menuCliente(cliente);
+            if (cliente != null) {
+                autenticado = true;
+                System.out.println("Inicio de sesión exitoso.");
+                System.out.println("Bienvenido:  " + cliente.getNombreCompleto());
+                menuCliente(cliente);
+            } else {
+                intentosRestantes--;
+                if (intentosRestantes > 0) {
+                    System.out.println("Credenciales incorrectas. Te quedan " + intentosRestantes + " intentos.");
+                } else {
+                    System.out.println("Has agotado tus intentos. La cuenta ha sido bloqueada.");
+                }
+            }
         }
     }
 
