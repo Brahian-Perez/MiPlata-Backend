@@ -21,7 +21,14 @@ public class MenuApp {
     }
 
     public void iniciar() {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("---------------------------------------------------------");
 
+        System.out.println("------- BIENVENIDO AL SISTEMA BANCARIO MI PLATA -------");
+        System.out.println("--- REGISTRA UNA CUENTA PARA INICIAR CON LA EXPERIENCIA  ---");
+        //colocar fecha y hora actual
+        System.out.println("---FECHA Y HORA ACTUAL: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"---");
+        System.out.println("---------------------------------------------------------");
         int opcion;
 
         do {
@@ -50,7 +57,8 @@ public class MenuApp {
     // REGISTRO CLIENTE
     // =========================
     private void registrarCliente() {
-
+        System.out.println("                               ");
+        System.out.println("--- REGISTRAR CLIENTE ---");
         System.out.print("Identificación: ");
         String id = sc.nextLine();
 
@@ -83,6 +91,8 @@ public class MenuApp {
     // LOGIN
     // =========================
     private void login() {
+        System.out.println("                               ");
+        System.out.println("--- LOGIN ---");
         int intentosRestantes = 3;
         boolean autenticado = false;
         Cliente cliente = null;
@@ -119,7 +129,8 @@ public class MenuApp {
         int opcion;
 
         do {
-            System.out.println("\n===== MENÚ CLIENTE =====");
+            System.out.println("                               ");
+            System.out.println("--- MENÚ CLIENTE ---");
             System.out.println("1. Crear cuenta");
             System.out.println("2. Ver cuentas");
             System.out.println("3. Consignar");
@@ -144,11 +155,9 @@ public class MenuApp {
                 case 4 -> retirar(cliente);
                 case 5 -> verMovimientos(cliente);
                 case 6 -> transferir(cliente);
-
                 case 7 -> comprarTarjeta(cliente);
                 case 8 -> pagarTarjeta(cliente);
                 case 9 -> consultarTarjeta(cliente);
-                // Dentro del switch del menuCliente:
                 case 10 -> eliminarCuenta(cliente);
 
                 case 0 -> cliente.cerrarSesion();
@@ -162,11 +171,11 @@ public class MenuApp {
     // ADMIN CLIENTES
     // =========================
     private void menuAdministracion() {
-
+        System.out.println("                               ");
+        System.out.println("--- ADMINISTRAR CLIENTES ---");
         int op;
 
         do {
-            System.out.println("\n--- ADMIN CLIENTES ---");
             System.out.println("1. Listar clientes");
             System.out.println("2. Editar cliente");
             System.out.println("3. Eliminar cliente");
@@ -186,9 +195,9 @@ public class MenuApp {
     }
 
     private void listarClientes() {
-
+        System.out.println("                               ");
+        System.out.println("--- LISTAR CLIENTES ---");
         for (Cliente c : clienteService.listar()) {
-            System.out.println("--- CLIENTE ---");
             System.out.println("Id: "+c.getId() + " | " +
                     "Identificacion: "+c.getIdentificacion() + " | " +
                     "Nombre: "+c.getNombreCompleto() + " | " +
@@ -196,22 +205,21 @@ public class MenuApp {
                     "Usuario: "+c.getUsuario() + " | " +
                     "Contraseña: "+c.getContrasena()
                     + " | "
-
             );
+            System.out.println("------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("                                      ");
         }
     }
 
     private void editarCliente() {
-
+        System.out.println("                               ");
+        System.out.println("--- EDITAR CLIENTE ---");
         System.out.print("Usuario: ");
         String usuario = sc.nextLine();
-
         System.out.print("Nuevo nombre: ");
         String nombre = sc.nextLine();
-
         System.out.print("Nuevo celular: ");
         String celular = sc.nextLine();
-        //editar contraseña
         System.out.print("Nueva contraseña: ");
         String pass = sc.nextLine();
 
@@ -219,10 +227,10 @@ public class MenuApp {
     }
 
     private void eliminarCliente() {
-
+        System.out.println("                               ");
+        System.out.println("--- ELIMINAR CLIENTE ---");
         System.out.print("Usuario a eliminar: ");
         String usuario = sc.nextLine();
-
         System.out.print("Confirmar (si/no): ");
         String conf = sc.nextLine();
 
@@ -235,7 +243,8 @@ public class MenuApp {
     // CUENTAS
     // =========================
     private void crearCuenta(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- CREAR CUENTA ---");
         System.out.println("Tipo de cuenta:");
         System.out.println("1. Ahorros");
         System.out.println("2. Corriente");
@@ -261,9 +270,10 @@ public class MenuApp {
         }
     }
     private void eliminarCuenta(Cliente cliente) {
+        System.out.println("                               ");
+        System.out.println("--- ELIMINAR CUENTA ---");
         System.out.print("Número de cuenta a eliminar: ");
         String numero = sc.nextLine();
-
         System.out.print("¿Está seguro? (si/no): ");
         String confirmacion = sc.nextLine();
 
@@ -273,10 +283,10 @@ public class MenuApp {
     }
 
     private void consignar(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- CONSIGNAR ---");
         System.out.print("Número de cuenta: ");
         String numero = sc.nextLine();
-
         System.out.print("Monto: ");
         double monto = sc.nextDouble();
         sc.nextLine();
@@ -285,10 +295,10 @@ public class MenuApp {
     }
 
     private void retirar(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- RETIRAR ---");
         System.out.print("Número de cuenta: ");
         String numero = sc.nextLine();
-
         System.out.print("Monto: ");
         double monto = sc.nextDouble();
         sc.nextLine();
@@ -297,13 +307,12 @@ public class MenuApp {
     }
 
     private void transferir(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- TRANSFERIR ---");
         System.out.print("Cuenta origen: ");
         String origen = sc.nextLine();
-
         System.out.print("Cuenta destino: ");
         String destino = sc.nextLine();
-
         System.out.print("Monto: ");
         double monto = sc.nextDouble();
         sc.nextLine();
@@ -311,16 +320,19 @@ public class MenuApp {
         cuentaService.transferir(cliente, origen, destino, monto);
     }
     private void verMovimientos(Cliente cliente) {
+        System.out.println("                               ");
+        System.out.println("--- VER MOVIMIENTOS ---");
         System.out.println("1. Ver movimientos de una cuenta");
         System.out.println("2. Ver movimientos de todas las cuentas");
         System.out.print("Opción: ");
+
         int opcion = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
+        sc.nextLine();
 
         if (opcion == 2) {
+            System.out.println("                               ");
             System.out.println("\n--- HISTORIAL GLOBAL ---");
             for (Cuenta c : cliente.getCuentas()) {
-                // Actualizamos los datos en memoria antes de mostrar
                 ((services.CuentaServiceImpl) cuentaService).actualizarMovimientosEnMemoria(c);
 
                 System.out.println("\nCuenta: " + c.getNumeroCuenta());
@@ -333,7 +345,6 @@ public class MenuApp {
             Cuenta cuenta = cliente.buscarCuenta(numero);
 
             if (cuenta != null) {
-                // Actualizamos los datos en memoria antes de mostrar
                 ((services.CuentaServiceImpl) cuentaService).actualizarMovimientosEnMemoria(cuenta);
                 cuenta.mostrarMovimientos();
             } else {
@@ -348,13 +359,12 @@ public class MenuApp {
     // TARJETA DE CRÉDITO
     // =========================
     private void comprarTarjeta(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- COMPRAR CON TARJETA ---");
         System.out.print("Número de tarjeta: ");
         String numero = sc.nextLine();
-
         System.out.print("Monto compra: ");
         double monto = sc.nextDouble();
-
         System.out.print("Cuotas: ");
         int cuotas = sc.nextInt();
         sc.nextLine();
@@ -363,15 +373,15 @@ public class MenuApp {
     }
 
     private void pagarTarjeta(Cliente cliente) {
-
+        System.out.println("                               ");
+        System.out.println("--- PAGAR TARJETA ---");
         System.out.print("Número de tarjeta: ");
         String numero = sc.nextLine();
-
         System.out.print("Monto a pagar: ");
         double monto = sc.nextDouble();
         sc.nextLine();
-
         cuentaService.pagarTarjeta(cliente, numero, monto);
+
     }
 
     private void consultarTarjeta(Cliente cliente) {
@@ -382,10 +392,13 @@ public class MenuApp {
         Cuenta cuenta = cliente.buscarCuenta(numero);
 
         if (cuenta instanceof TarjetaCredito tarjeta) {
-
+            System.out.println("                               ");
+            System.out.println("--- INFORMACIÓN TARJETA ---");
+            System.out.println("Numero: " + tarjeta.getNumeroCuenta());
             System.out.println("Deuda: " + tarjeta.getDeuda());
             System.out.println("Cupo disponible: " + tarjeta.getCupoDisponible());
-
+            System.out.println("Cuota mensual: " + tarjeta.calcularCuotaMensual());
+            System.out.println("-----------------------------");
         } else {
             System.out.println("No es una tarjeta válida");
         }
