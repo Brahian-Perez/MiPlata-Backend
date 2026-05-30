@@ -211,4 +211,27 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
         }
         return lista;
     }
+    @Override
+    public void eliminar(int cuentaId) {
+        String[] tablas = {"cuentas_ahorros", "cuentas_corriente", "tarjetas_credito", "movimientos"};
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            conn.setAutoCommit(false);
+            for (String tabla : tablas) {
+                String sqlHijo = "DELETE FROM " + tabla + " WHERE cuenta_id = ?";
+                try (PreparedStatement stmt = conn.prepareStatement(sqlHijo)) {
+                    stmt.setInt(1, cuentaId);
+                    stmt.executeUpdate();
+                }
+            }
+            String sqlPadre = "DELETE FROM cuentas WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sqlPadre)) {
+                stmt.setInt(1, cuentaId);
+                stmt.executeUpdate();
+            }
+            conn.commit();
+            System.out.println("Cuenta eliminada exitosamente de la base de datos.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

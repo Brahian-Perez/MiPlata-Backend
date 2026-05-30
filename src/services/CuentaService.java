@@ -10,4 +10,5 @@ public interface CuentaService {
     void transferir(Cliente cliente, String origen, String destino, double monto);
     void comprarConTarjeta(Cliente cliente, String numeroCuenta, double monto, int cuotas);
     void pagarTarjeta(Cliente cliente, String numeroCuenta, double monto);
+    void eliminarCuenta(Cliente cliente, String numeroCuenta);
 }

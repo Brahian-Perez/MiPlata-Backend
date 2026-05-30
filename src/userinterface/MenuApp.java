@@ -129,6 +129,7 @@ public class MenuApp {
             System.out.println("7. Comprar con tarjeta de crédito");
             System.out.println("8. Pagar tarjeta de crédito");
             System.out.println("9. Consultar tarjeta de crédito");
+            System.out.println("10. Eliminar cuenta");
             System.out.println("0. Cerrar sesión");
             System.out.print("Opción: ");
 
@@ -147,6 +148,8 @@ public class MenuApp {
                 case 7 -> comprarTarjeta(cliente);
                 case 8 -> pagarTarjeta(cliente);
                 case 9 -> consultarTarjeta(cliente);
+                // Dentro del switch del menuCliente:
+                case 10 -> eliminarCuenta(cliente);
 
                 case 0 -> cliente.cerrarSesion();
                 default -> System.out.println("Opción inválida");
@@ -257,6 +260,17 @@ public class MenuApp {
             cuentaService.crearCuenta(cliente, cuenta);
         }
     }
+    private void eliminarCuenta(Cliente cliente) {
+        System.out.print("Número de cuenta a eliminar: ");
+        String numero = sc.nextLine();
+
+        System.out.print("¿Está seguro? (si/no): ");
+        String confirmacion = sc.nextLine();
+
+        if (confirmacion.equalsIgnoreCase("si")) {
+            cuentaService.eliminarCuenta(cliente, numero);
+        }
+    }
 
     private void consignar(Cliente cliente) {
 
@@ -296,13 +310,6 @@ public class MenuApp {
 
         cuentaService.transferir(cliente, origen, destino, monto);
     }
-//crear opcion para ver los movimientos de todas las cuentas
-    // =========================
-    // MOVIMIENTOS
-    // =========================
-// =========================
-// MOVIMIENTOS
-// =========================
     private void verMovimientos(Cliente cliente) {
         System.out.println("1. Ver movimientos de una cuenta");
         System.out.println("2. Ver movimientos de todas las cuentas");

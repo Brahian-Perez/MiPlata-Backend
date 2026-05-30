@@ -180,6 +180,17 @@ public class CuentaServiceImpl implements CuentaService {
             e.printStackTrace();
         }
     }
+    @Override
+    public void eliminarCuenta(Cliente cliente, String numeroCuenta) {
+        Cuenta cuenta = cliente.buscarCuenta(numeroCuenta);
+        if (cuenta != null) {
+            cuentaRepo.eliminar(cuenta.getId());
+            cliente.getCuentas().remove(cuenta);
+            System.out.println("Cuenta " + numeroCuenta + " eliminada del sistema.");
+        } else {
+            System.out.println("No se encontró la cuenta.");
+        }
+    }
 
     private void persistirUltimo(Cuenta cuenta) {
         ArrayList<Movimiento> movs = cuenta.obtenerMovimientos();
