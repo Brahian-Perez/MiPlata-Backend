@@ -296,18 +296,44 @@ public class MenuApp {
 
         cuentaService.transferir(cliente, origen, destino, monto);
     }
-
+//crear opcion para ver los movimientos de todas las cuentas
+    // =========================
+    // MOVIMIENTOS
+    // =========================
+// =========================
+// MOVIMIENTOS
+// =========================
     private void verMovimientos(Cliente cliente) {
+        System.out.println("1. Ver movimientos de una cuenta");
+        System.out.println("2. Ver movimientos de todas las cuentas");
+        System.out.print("Opción: ");
+        int opcion = sc.nextInt();
+        sc.nextLine(); // Limpiar buffer
 
-        System.out.print("Número de cuenta: ");
-        String numero = sc.nextLine();
+        if (opcion == 2) {
+            System.out.println("\n--- HISTORIAL GLOBAL ---");
+            for (Cuenta c : cliente.getCuentas()) {
+                // Actualizamos los datos en memoria antes de mostrar
+                ((services.CuentaServiceImpl) cuentaService).actualizarMovimientosEnMemoria(c);
 
-        Cuenta cuenta = cliente.buscarCuenta(numero);
+                System.out.println("\nCuenta: " + c.getNumeroCuenta());
+                c.mostrarMovimientos();
+                System.out.println("-----------------------------");
+            }
+        } else if (opcion == 1) {
+            System.out.print("Número de cuenta: ");
+            String numero = sc.nextLine();
+            Cuenta cuenta = cliente.buscarCuenta(numero);
 
-        if (cuenta != null) {
-            cuenta.mostrarMovimientos();
+            if (cuenta != null) {
+                // Actualizamos los datos en memoria antes de mostrar
+                ((services.CuentaServiceImpl) cuentaService).actualizarMovimientosEnMemoria(cuenta);
+                cuenta.mostrarMovimientos();
+            } else {
+                System.out.println("Cuenta no encontrada.");
+            }
         } else {
-            System.out.println("Cuenta no encontrada.");
+            System.out.println("Opción inválida.");
         }
     }
 

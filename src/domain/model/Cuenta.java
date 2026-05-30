@@ -97,6 +97,7 @@ public abstract class Cuenta implements ITransaccion, ITransferible {
     public void mostrarMovimientos() {
         if (movimientos.isEmpty()) {
             System.out.println("No hay movimientos.");
+            System.out.println("                         ");
             return;
         }
         for (Movimiento m : movimientos) {

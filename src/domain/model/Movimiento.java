@@ -33,8 +33,12 @@ public class Movimiento {
     }
 
     public void mostrar() {
-        System.out.println(id + " | " + fechaHora + " | " + tipo + " | $" + valor +
-                " | Saldo: $" + saldoPosterior + " | " + descripcion);
+        System.out.println("Id"+id + " | " +
+                "Fecha:"+fechaHora + " | " +
+                "Tipo:"+tipo + " | " +
+                "Valor: $"+valor + " |"+
+                "Saldo Posterior: $" + saldoPosterior + " | " +
+                "Descripción: " + descripcion);
     }
 
     public int getId() { return id; }

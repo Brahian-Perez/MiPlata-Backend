@@ -120,9 +120,29 @@ public class CuentaServiceImpl implements CuentaService {
                 cuentaRepo.actualizarSaldo(cuentaDestino.getId(), cuentaDestino.consultarSaldo());
                 persistirUltimo(cuentaOrigen);
                 persistirUltimo(cuentaDestino);
+                if (cliente.buscarCuenta(destino) != null) {
+                    refrescarCuentaEnMemoria(cliente, destino);
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Error durante la transferencia.");
+        }
+    }
+    private void refrescarCuentaEnMemoria(Cliente cliente, String numeroCuenta) {
+        Cuenta cuentaActualizada = cuentaRepo.buscarPorNumero(numeroCuenta);
+
+        if (cuentaActualizada != null) {
+            cuentaActualizada.cargarMovimientos(movimientoRepo.listarPorCuenta(cuentaActualizada.getId()));
+
+            ArrayList<Cuenta> cuentas = cliente.getCuentas();
+            for (int i = 0; i < cuentas.size(); i++) {
+                if (cuentas.get(i).getNumeroCuenta().equals(numeroCuenta)) {
+                    cuentas.set(i, cuentaActualizada);
+                    break;
+                }
+            }
         }
     }
 
@@ -166,5 +186,9 @@ public class CuentaServiceImpl implements CuentaService {
         if (!movs.isEmpty()) {
             movimientoRepo.guardar(movs.get(movs.size() - 1), cuenta.getId());
         }
+    }
+    public void actualizarMovimientosEnMemoria(Cuenta cuenta) {
+        ArrayList<Movimiento> movimientosFrescos = movimientoRepo.listarPorCuenta(cuenta.getId());
+        cuenta.cargarMovimientos(movimientosFrescos);
     }
 }
